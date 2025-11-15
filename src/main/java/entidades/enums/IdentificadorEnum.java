@@ -1,4 +1,4 @@
-package model;
+package entidades.enums;
 
 public enum IdentificadorEnum {
     ALU,
