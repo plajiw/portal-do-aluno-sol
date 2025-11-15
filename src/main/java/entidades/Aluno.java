@@ -1,11 +1,11 @@
 package entidades;
 
-import entidades.interfaces.IIdentificavel;
+import entidades.interfaces.IIdentificador;
 
-public class Aluno extends Pessoa implements IIdentificavel {
+public class Aluno extends Pessoa implements IIdentificador {
 
     @Override
-    public int gerarIdentificador() {
-        return 0;
+    public String gerarIdentificador() {
+    return "a";
     }
 }
