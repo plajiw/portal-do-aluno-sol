@@ -1,6 +1,6 @@
 # 🎓 Portal de Gestão Acadêmica (Simulação SOL)
 
-Projeto final da disciplina **Programação Orientada a Objetos** do curso de Programação Orientada a Objetos com Java, ministrada pelo professor Thalles Bruno na Pontifícia Universidade Católica de Goiás (PUC-GO).
+Projeto da disciplina **Programação Orientada a Objetos** do curso de Ciências da Computação, ministrada pelo professor Thalles Bruno na Pontifícia Universidade Católica de Goiás (PUC-GO).
 
 ## 📝 Descrição
 
