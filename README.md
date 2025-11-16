@@ -9,14 +9,14 @@ O sistema simula, em modo console, funcionalidades básicas do portal SOL, geren
 - **Encapsulamento**: Proteção dos dados das classes.
 - **Herança**: Reutilização de código com superclasses e subclasses.
 - **Polimorfismo**: Tratamento genérico de objetos derivados.
-- **Abstração**: Modelagem de entidades em classes e interfaces.
+- **Abstração**: Modelagem de entities em classes e interfaces.
 
 O sistema suporta operações **CRUD** (Create, Read, Update, Delete) com dados armazenados em **ArrayLists** (em memória).
 
 ## 🛠 Tecnologias
 
 - **Linguagem**: Java (JDK 25)
-- **Modelagem**: UML (Diagrama de Classes)
+- **Modelagem**: UML (Lucid Chart)
 - **Controle de Versão**: Git e GitHub
 
 ## 📊 Diagrama UML
@@ -24,6 +24,7 @@ O sistema suporta operações **CRUD** (Create, Read, Update, Delete) com dados 
 O diagrama de classes está disponível na pasta de documentação:
 
 [**Ver Diagrama UML**](./docs/uml/diagrama-de-classes.png)
+https://lucid.app/lucidchart/9e997aa2-974e-402b-8ee4-c9fa3426228d/edit?view_items=hPx930SKfS5V&page=8Ox93pH~03F4&invitationId=inv_4fc57ccc-1e2a-4877-ab48-f73d376b6e0b
 
 ## 👥 Autores
 

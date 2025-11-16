@@ -1,4 +1,4 @@
-package entidades.enums;
+package enums;
 
 public enum CursosEnum {
     CIENCIAS_DA_COMPUTACAO("Ciências da Computação"),

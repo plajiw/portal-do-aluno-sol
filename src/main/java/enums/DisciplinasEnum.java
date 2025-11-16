@@ -1,4 +1,4 @@
-package entidades.enums;
+package enums;
 
 public enum DisciplinasEnum {
     METODOLOGIA_CIENTIFICA("Metodologia Científica"),
