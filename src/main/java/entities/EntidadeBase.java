@@ -12,11 +12,12 @@ public abstract class EntidadeBase implements IIdentificador {
         this.criadoEm = new Date();
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
     public Date getCriadoEm() {
-        return criadoEm;
+        return new Date(criadoEm.getTime());
     }
 }

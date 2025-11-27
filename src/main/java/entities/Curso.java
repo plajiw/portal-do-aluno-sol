@@ -1,22 +1,16 @@
 package entities;
 
-import enums.CursosEnum;
 import enums.IdentificadorEnum;
 import services.ServicoDoIdentificador;
 
-import java.util.ArrayList;
+public class Curso extends EntidadeBase {
+    private String nome;
 
-public class Curso extends EntidadeBase{
-    private CursosEnum nome;
-    private ArrayList<Disciplina> disciplinas = new ArrayList<>();
-
-    public Curso(CursosEnum nome) {
+    public Curso(String nome) {
         super(ServicoDoIdentificador.getInstancia().gerarId(IdentificadorEnum.CURSO));
         this.nome = nome;
-        this.disciplinas = new ArrayList<>();
     }
 
-    public String getIdentificador() {
-        return getId();
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 }

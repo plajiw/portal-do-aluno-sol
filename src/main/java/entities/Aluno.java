@@ -11,4 +11,9 @@ public class Aluno extends Pessoa {
     public String getMatricula() {
         return getId();
     }
+
+    @Override
+    public String toString() {
+        return "Aluno: " + getNomeCompleto() + " (Matrícula: " + getMatricula() + ")";
+    }
 }
