@@ -23,8 +23,11 @@ O sistema suporta operações **CRUD** (Create, Read, Update, Delete) com dados 
 
 O diagrama de classes está disponível na pasta de documentação:
 
-[**Ver Diagrama UML**](./docs/uml/diagrama-de-classes.png)
-https://lucid.app/lucidchart/9e997aa2-974e-402b-8ee4-c9fa3426228d/edit?view_items=hPx930SKfS5V&page=8Ox93pH~03F4&invitationId=inv_4fc57ccc-1e2a-4877-ab48-f73d376b6e0b
+![Visualização do Diagrama UML](./docs/uml/diagrama-uml.jpeg)
+
+[**Acessar PDF - Repositório**](./docs/uml/diagrama-uml.pdf)
+
+[**Acessar PDF - Lucid Chart**](https://lucid.app/lucidchart/9e997aa2-974e-402b-8ee4-c9fa3426228d/edit?viewport_loc=-7087%2C-1562%2C13863%2C6313%2C8Ox93pH~03F4&invitationId=inv_4fc57ccc-1e2a-4877-ab48-f73d376b6e0b)
 
 ## 👥 Autores
 
