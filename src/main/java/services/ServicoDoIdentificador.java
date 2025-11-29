@@ -1,13 +1,15 @@
 package services;
 
 import enums.IdentificadorEnum;
+
 import java.util.UUID;
 
 public class ServicoDoIdentificador {
 
     private static ServicoDoIdentificador instancia;
 
-    private ServicoDoIdentificador() {}
+    private ServicoDoIdentificador() {
+    }
 
     public static synchronized ServicoDoIdentificador getInstancia() {
         if (instancia == null) {

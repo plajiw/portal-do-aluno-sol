@@ -17,17 +17,37 @@ public abstract class Pessoa extends EntidadeBase {
         this.dataDeNascimento = dataDeNascimento;
     }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getSobrenome() { return sobrenome; }
-    public void setSobrenome(String sobrenome) { this.sobrenome = sobrenome; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getSobrenome() {
+        return sobrenome;
+    }
 
-    public String getDataDeNascimento() { return dataDeNascimento; }
-    public void setDataDeNascimento(String dataDeNascimento) { this.dataDeNascimento = dataDeNascimento; }
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(String dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
 
     public String getNomeCompleto() {
         return nome + " " + sobrenome;

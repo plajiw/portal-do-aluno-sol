@@ -1,7 +1,9 @@
 package entities;
 
 import enums.IdentificadorEnum;
+import exceptions.RegraDeNegocioException;
 import services.ServicoDoIdentificador;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,11 @@ public class Turma extends EntidadeBase {
     }
 
     public void matricularAluno(Aluno aluno) {
-        if (!alunos.contains(aluno)) {
-            this.alunos.add(aluno);
+        if (alunos.contains(aluno)) {
+            throw new RegraDeNegocioException("O aluno " + aluno.getNome() + "já está matriculado nesta turma!");
         }
+
+        this.alunos.add(aluno);
     }
 
     public void removerAluno(Aluno aluno) {
@@ -35,8 +39,19 @@ public class Turma extends EntidadeBase {
         return alunos;
     }
 
-    public String getCodigoTurma() { return codigoTurma; }
-    public Curso getCurso() { return curso; }
-    public Disciplina getDisciplina() { return disciplina; }
-    public Professor getProfessor() { return professor; }
+    public String getCodigoTurma() {
+        return codigoTurma;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
 }

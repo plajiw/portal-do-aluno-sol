@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.IIdentificador;
+
 import java.util.Date;
 
 public abstract class EntidadeBase implements IIdentificador {

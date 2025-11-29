@@ -1,4 +1,6 @@
 import entities.*;
+import exceptions.RegraDeNegocioException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean executando = true;
 
-        inicializarDadosFicticios();
+        inicializarDadosMockados();
 
         System.out.println("=== SISTEMA DE GESTÃO ACADÊMICA ===");
 
@@ -22,40 +24,50 @@ public class Main {
             exibirMenu();
             int opcao = lerInteiro(scanner);
 
-            switch (opcao) {
-                case 1:
-                    cadastrarAluno(scanner);
-                    break;
-                case 2:
-                    cadastrarProfessor(scanner);
-                    break;
-                case 3:
-                    criarTurma(scanner);
-                    break;
-                case 4:
-                    matricularAluno(scanner);
-                    break;
-                case 5:
-                    exibirRelatorioGeral();
-                    break;
-                case 0:
-                    System.out.println("Encerrando sistema...");
-                    executando = false;
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
+            try {
+                switch (opcao) {
+                    case 1:
+                        cadastrarAluno(scanner);
+                        break;
+                    case 2:
+                        cadastrarProfessor(scanner);
+                        break;
+                    case 3:
+                        criarTurma(scanner);
+                        break;
+                    case 4:
+                        matricularAluno(scanner);
+                        break;
+                    case 5:
+                        exibirRelatorioGeral();
+                        break;
+                    case 6:
+                        removerAluno(scanner);
+                        break;
+                    case 0:
+                        System.out.println("Encerrando sistema...");
+                        executando = false;
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("ERRO DE VALIDAÇÃO: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("ERRO INESPERADO: " + e.getMessage());
             }
         }
         scanner.close();
     }
 
     private static void exibirMenu() {
-        System.out.println("\n--- MENU ---");
+        System.out.println("\n--- MENU PRINCIPAL ---");
         System.out.println("1. Cadastrar Aluno");
         System.out.println("2. Cadastrar Professor");
         System.out.println("3. Criar Nova Turma");
         System.out.println("4. Matricular Aluno em Turma");
         System.out.println("5. Exibir Relatório Geral");
+        System.out.println("6. Remover Aluno");
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -73,7 +85,7 @@ public class Main {
 
         Aluno novoAluno = new Aluno(nome, sobrenome, email, dataNasc);
         alunos.add(novoAluno);
-        System.out.println("Aluno cadastrado com Sucesso! Matrícula: " + novoAluno.getMatricula());
+        System.out.println("Sucesso! Aluno cadastrado com Matrícula: " + novoAluno.getMatricula());
     }
 
     private static void cadastrarProfessor(Scanner scanner) {
@@ -85,9 +97,9 @@ public class Main {
         System.out.print("Especialidade: ");
         String especialidade = scanner.nextLine();
 
-        Professor novoProf = new Professor(nome, sobrenome, nome.toLowerCase()+"@escola.com", "01/01/1980", especialidade);
+        Professor novoProf = new Professor(nome, sobrenome, nome.toLowerCase() + "@faculdade.com", "01/01/1980", especialidade);
         professores.add(novoProf);
-        System.out.println("Professor cadastrado!");
+        System.out.println("Professor cadastrado com sucesso!");
     }
 
     private static void criarTurma(Scanner scanner) {
@@ -110,7 +122,7 @@ public class Main {
         Disciplina disciplina = new Disciplina(nomeDisc, 60);
         disciplinas.add(disciplina);
 
-        System.out.println("Selecione o Professor:");
+        System.out.println("Selecione o Professor Responsável:");
         for (int i = 0; i < professores.size(); i++) {
             System.out.println(i + ". " + professores.get(i).getNomeCompleto());
         }
@@ -121,7 +133,7 @@ public class Main {
             turmas.add(novaTurma);
             System.out.println("Turma criada com sucesso!");
         } else {
-            System.out.println("Professor inválido.");
+            System.out.println("Opção de professor inválida.");
         }
     }
 
@@ -157,8 +169,33 @@ public class Main {
         }
     }
 
+    private static void removerAluno(Scanner scanner) {
+        System.out.println("\n--- Remover Aluno ---");
+        if (alunos.isEmpty()) {
+            throw new RegraDeNegocioException("Não há alunos cadastrados para remover.");
+        }
+
+        System.out.println("Selecione o aluno para remover:");
+        for (int i = 0; i < alunos.size(); i++) {
+            System.out.println(i + ". " + alunos.get(i).getIdentificacaoFormatada());
+        }
+
+        int index = lerInteiro(scanner);
+
+        if (index >= 0 && index < alunos.size()) {
+            Aluno removido = alunos.remove(index);
+            System.out.println("Aluno " + removido.getNome() + " foi removido do sistema.");
+
+            for (Turma t : turmas) {
+                t.removerAluno(removido);
+            }
+        } else {
+            throw new RegraDeNegocioException("Índice inválido.");
+        }
+    }
+
     private static void exibirRelatorioGeral() {
-        System.out.println("\n=== RELATÓRIO ===");
+        System.out.println("\n=== RELATÓRIO DA FACULDADE ===");
         if (turmas.isEmpty()) {
             System.out.println("Nenhuma turma cadastrada.");
         }
@@ -168,10 +205,10 @@ public class Main {
             System.out.println("Curso: " + t.getCurso().getNome());
             System.out.println("Disciplina: " + t.getDisciplina().getNome());
             System.out.println("Professor: " + t.getProfessor().getNomeCompleto());
-            System.out.println("Alunos Matriculados: " + t.getAlunosMatriculados().size());
+            System.out.println("Qtd Alunos: " + t.getAlunosMatriculados().size());
 
             for (Aluno a : t.getAlunosMatriculados()) {
-                System.out.println(" - " + a.getNomeCompleto() + " (" + a.getMatricula() + ")");
+                System.out.println(" -> " + a.getIdentificacaoFormatada());
             }
         }
         System.out.println("-------------------------");
@@ -179,20 +216,31 @@ public class Main {
 
     private static int lerInteiro(Scanner scanner) {
         try {
-            int numero = Integer.parseInt(scanner.nextLine());
-            return numero;
+            return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             return -1;
         }
     }
 
-    private static void inicializarDadosFicticios() {
-        Professor p1 = new Professor("João", "Silva", "joao@prof.com", "1980-05-20", "Java");
+    private static void inicializarDadosMockados() {
+        Professor p1 = new Professor("Geraldo", "Mendes", "geraldo@prof.com", "1975-03-20", "Back-end");
         professores.add(p1);
 
-        Aluno a1 = new Aluno("Maria", "Souza", "maria@gmail.com", "2000-10-10");
-        Aluno a2 = new Aluno("Pedro", "Santos", "pedro@hotmail.com", "2001-05-15");
+        Aluno a1 = new Aluno("Pablo", "Ramos", "pablo@gmail.com", "2000-10-10");
+        Aluno a2 = new Aluno("Ana", "Costa", "ana@hotmail.com", "2002-05-15");
         alunos.add(a1);
         alunos.add(a2);
+
+        Curso c1 = new Curso("Sistemas de Informação");
+        cursos.add(c1);
+
+        Disciplina d1 = new Disciplina("Java Orientado a Objetos", 80);
+        disciplinas.add(d1);
+
+        Turma t1 = new Turma("T-2025", c1, d1, p1);
+        t1.matricularAluno(a1);
+        turmas.add(t1);
+
+        System.out.println(">> Dados iniciais carregados.");
     }
 }

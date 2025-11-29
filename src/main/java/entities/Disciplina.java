@@ -13,6 +13,11 @@ public class Disciplina extends EntidadeBase {
         this.cargaHoraria = cargaHoraria;
     }
 
-    public String getNome() { return nome; }
-    public int getCargaHoraria() { return cargaHoraria; }
+    public String getNome() {
+        return nome;
+    }
+
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
 }
