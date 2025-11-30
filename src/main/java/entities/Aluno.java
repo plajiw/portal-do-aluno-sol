@@ -13,6 +13,11 @@ public class Aluno extends Pessoa {
     }
 
     @Override
+    public String getIdentificacaoFormatada() {
+        return "Aluno: " + getNomeCompleto() + " | Matrícula: " + getMatricula();
+    }
+
+    @Override
     public String toString() {
         return "Aluno: " + getNomeCompleto() + " (Matrícula: " + getMatricula() + ")";
     }

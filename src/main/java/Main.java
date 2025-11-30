@@ -18,7 +18,7 @@ public class Main {
 
         inicializarDadosMockados();
 
-        System.out.println("=== SISTEMA DE GESTÃO ACADÊMICA ===");
+        System.out.println("=== PORTAL DO ALUNO - SOL ===");
 
         while (executando) {
             exibirMenu();
@@ -39,10 +39,10 @@ public class Main {
                         matricularAluno(scanner);
                         break;
                     case 5:
-                        exibirRelatorioGeral();
+                        removerAluno(scanner);
                         break;
                     case 6:
-                        removerAluno(scanner);
+                        exibirRelatorioGeral();
                         break;
                     case 0:
                         System.out.println("Encerrando sistema...");
@@ -51,10 +51,8 @@ public class Main {
                     default:
                         System.out.println("Opção inválida!");
                 }
-            } catch (RegraDeNegocioException e) {
-                System.out.println("ERRO DE VALIDAÇÃO: " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("ERRO INESPERADO: " + e.getMessage());
+                System.out.println("Ocorreu um erro: " + e.getMessage());
             }
         }
         scanner.close();
@@ -66,8 +64,8 @@ public class Main {
         System.out.println("2. Cadastrar Professor");
         System.out.println("3. Criar Nova Turma");
         System.out.println("4. Matricular Aluno em Turma");
-        System.out.println("5. Exibir Relatório Geral");
-        System.out.println("6. Remover Aluno");
+        System.out.println("5. Remover Aluno");
+        System.out.println("6. Exibir Relatório");
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -97,7 +95,7 @@ public class Main {
         System.out.print("Especialidade: ");
         String especialidade = scanner.nextLine();
 
-        Professor novoProf = new Professor(nome, sobrenome, nome.toLowerCase() + "@faculdade.com", "01/01/1980", especialidade);
+        Professor novoProf = new Professor(nome, sobrenome, nome.toLowerCase() + "@puc.edu.br", "01/01/1980", especialidade);
         professores.add(novoProf);
         System.out.println("Professor cadastrado com sucesso!");
     }
@@ -223,18 +221,15 @@ public class Main {
     }
 
     private static void inicializarDadosMockados() {
-        Professor p1 = new Professor("Geraldo", "Mendes", "geraldo@prof.com", "1975-03-20", "Back-end");
+        Professor p1 = new Professor("João", "Alves", "joaoalves@gmail.com", "01/10/1975");
         professores.add(p1);
 
-        Aluno a1 = new Aluno("Pablo", "Ramos", "pablo@gmail.com", "2000-10-10");
-        Aluno a2 = new Aluno("Ana", "Costa", "ana@hotmail.com", "2002-05-15");
+        Aluno a1 = new Aluno("Matheus", "Silva", "matheussilva@gmail.com", "01/01/2000");
         alunos.add(a1);
-        alunos.add(a2);
 
-        Curso c1 = new Curso("Sistemas de Informação");
+        Curso c1 = new Curso("Ciência da Computação");
         cursos.add(c1);
-
-        Disciplina d1 = new Disciplina("Java Orientado a Objetos", 80);
+        Disciplina d1 = new Disciplina("Orientação à Objetos - Java", 80);
         disciplinas.add(d1);
 
         Turma t1 = new Turma("T-2025", c1, d1, p1);

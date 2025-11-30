@@ -52,4 +52,6 @@ public abstract class Pessoa extends EntidadeBase {
     public String getNomeCompleto() {
         return nome + " " + sobrenome;
     }
+
+    public abstract String getIdentificacaoFormatada();
 }

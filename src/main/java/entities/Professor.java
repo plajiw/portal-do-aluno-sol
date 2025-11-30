@@ -6,7 +6,7 @@ public class Professor extends Pessoa {
 
     private String especialidade;
 
-    public Professor(String nome, String sobrenome, String email, String dataDeNascimento, String especialidade) {
+    public Professor(String nome, String sobrenome, String email, String dataDeNascimento) {
         super(nome, sobrenome, email, dataDeNascimento, IdentificadorEnum.PROFESSOR);
         this.especialidade = especialidade;
     }
@@ -17,5 +17,10 @@ public class Professor extends Pessoa {
 
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
+    }
+
+    @Override
+    public String getIdentificacaoFormatada() {
+        return "Professor: " + getNomeCompleto() + " | Especialidade: " + getEspecialidade();
     }
 }
