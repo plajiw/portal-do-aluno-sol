@@ -1,24 +1,20 @@
 package entities;
 
-import interfaces.IIdentificador;
+import java.time.LocalDateTime;
 
-import java.util.Date;
+public abstract class EntidadeBase {
+    protected boolean ativo = true;
+    protected LocalDateTime dataCriacao = LocalDateTime.now();
 
-public abstract class EntidadeBase implements IIdentificador {
-    private final String id;
-    private final Date criadoEm;
-
-    public EntidadeBase(String id) {
-        this.id = id;
-        this.criadoEm = new Date();
+    public void ativar() {
+        ativo = true;
     }
 
-    @Override
-    public String getId() {
-        return id;
+    public void inativar() {
+        ativo = false;
     }
 
-    public Date getCriadoEm() {
-        return new Date(criadoEm.getTime());
+    public boolean ehAtivo() {
+        return ativo;
     }
 }

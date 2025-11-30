@@ -1,21 +1,34 @@
 package entities;
 
-import enums.IdentificadorEnum;
-import services.ServicoDoIdentificador;
+import entities.valueObjects.Email;
+import entities.valueObjects.Endereco;
+import interfaces.IIdentificavel;
 
-public abstract class Pessoa extends EntidadeBase {
+import java.time.LocalDate;
+
+public abstract class Pessoa extends EntidadeBase implements IIdentificavel {
     private String nome;
-    private String sobrenome;
-    private String email;
-    private String dataDeNascimento;
+    private Email email;
+    private Endereco endereco;
+    private LocalDate dataNascimento;
 
-    public Pessoa(String nome, String sobrenome, String email, String dataDeNascimento, IdentificadorEnum tipo) {
-        super(ServicoDoIdentificador.getInstancia().gerarId(tipo));
+    public Pessoa(String nome, Email email, Endereco endereco, LocalDate dataNascimento) {
         this.nome = nome;
-        this.sobrenome = sobrenome;
         this.email = email;
-        this.dataDeNascimento = dataDeNascimento;
+        this.endereco = endereco;
+        this.dataNascimento = dataNascimento;
     }
+
+    public void atualizarContato(Email email) {
+        this.email = email;
+    }
+
+    public void atualizarEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    @Override
+    public abstract String getIdentificacao();
 
     public String getNome() {
         return nome;
@@ -25,33 +38,19 @@ public abstract class Pessoa extends EntidadeBase {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public String getDataDeNascimento() {
-        return dataDeNascimento;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDataDeNascimento(String dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
-
-    public String getNomeCompleto() {
-        return nome + " " + sobrenome;
-    }
-
-    public abstract String getIdentificacaoFormatada();
 }

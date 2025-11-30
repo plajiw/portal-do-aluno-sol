@@ -1,57 +1,115 @@
 package entities;
 
-import enums.IdentificadorEnum;
-import exceptions.RegraDeNegocioException;
-import services.ServicoDoIdentificador;
+import entities.valueObjects.CodigoTurma;
+import entities.valueObjects.Matricula;
+import enums.PeriodoLetivo;
+import enums.Turno;
+import interfaces.IIdentificavel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Turma extends EntidadeBase {
-    private String codigoTurma;
-    private Curso curso;
-    private Disciplina disciplina;
+public class Turma extends EntidadeBase implements IIdentificavel {
+    private CodigoTurma codigo;
+    private int ano;
+    private PeriodoLetivo semestre;
+    private Turno turno;
+    private int vagas;
+    private List<Aluno> alunosMatriculados = new ArrayList<>();
     private Professor professor;
-    private List<Aluno> alunos;
+    private Disciplina disciplina;
 
-    public Turma(String codigoTurma, Curso curso, Disciplina disciplina, Professor professor) {
-        super(ServicoDoIdentificador.getInstancia().gerarId(IdentificadorEnum.TURMA));
-        this.codigoTurma = codigoTurma;
-        this.curso = curso;
-        this.disciplina = disciplina;
+    public Turma(CodigoTurma codigo, int ano, PeriodoLetivo semestre, Turno turno, int vagas, Professor professor, Disciplina disciplina) {
+        this.codigo = codigo;
+        this.ano = ano;
+        this.semestre = semestre;
+        this.turno = turno;
+        this.vagas = vagas;
         this.professor = professor;
-        this.alunos = new ArrayList<>();
+        this.disciplina = disciplina;
     }
 
-    public void matricularAluno(Aluno aluno) {
-        if (alunos.contains(aluno)) {
-            throw new RegraDeNegocioException("O aluno " + aluno.getNome() + "já está matriculado nesta turma!");
+    public boolean matricularAluno(Aluno a) {
+        if (alunosMatriculados.size() < vagas && !alunosMatriculados.contains(a)) {
+            alunosMatriculados.add(a);
+            a.adicionarTurma(this);
+            return true;
         }
-
-        this.alunos.add(aluno);
+        return false;
     }
 
-    public void removerAluno(Aluno aluno) {
-        this.alunos.remove(aluno);
+    public boolean cancelarMatricula(Matricula m) {
+        for (Aluno a : alunosMatriculados) {
+            if (a.getMatricula().getValor().equals(m.getValor())) {
+                alunosMatriculados.remove(a);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean temVagaDisponivel() {
+        return alunosMatriculados.size() < vagas;
+    }
+
+    @Override
+    public String getIdentificacao() {
+        return "Turma: " + codigo.getValor();
+    }
+
+    public CodigoTurma getCodigo() {
+        return codigo;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public PeriodoLetivo getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(PeriodoLetivo semestre) {
+        this.semestre = semestre;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public int getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(int vagas) {
+        this.vagas = vagas;
     }
 
     public List<Aluno> getAlunosMatriculados() {
-        return alunos;
+        return alunosMatriculados;
     }
 
-    public String getCodigoTurma() {
-        return codigoTurma;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 }
